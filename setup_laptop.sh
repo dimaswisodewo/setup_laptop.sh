@@ -39,6 +39,8 @@ PACKAGES=(
     "git-delta"
     "ripgrep"
     "dimaswisodewo/tools/sshwitch"
+    "fzf"
+    "zsh-autocomplete"
 )
 
 # GUI Applications and Fonts
@@ -119,6 +121,31 @@ if [ -f "$LAZYGIT_LOCAL_CONFIG" ]; then
 else
     echo -e "${YELLOW}Warning: '$LAZYGIT_LOCAL_CONFIG' not found. Skipping.${NC}"
 fi
+
+# Setup fzf integration
+if ! grep -q 'fzf --zsh' "$HOME/.zshrc"; then
+    echo -e "${BLUE}==> Adding fzf initialization to .zshrc...${NC}"
+    echo 'eval "$(fzf --zsh)"' >> "$HOME/.zshrc"
+else
+    echo -e "${GREEN}✓ fzf already configured in .zshrc.${NC}"
+fi
+
+# Setup zsh-autocomplete
+if ! grep -q 'zsh-autocomplete.plugin.zsh' "$HOME/.zshrc"; then
+    echo -e "${BLUE}==> Adding zsh-autocomplete to .zshrc...${NC}"
+    # Using brew --prefix to dynamically find the path for both Apple Silicon and Intel
+    echo 'source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh' >> "$HOME/.zshrc"
+else
+    echo -e "${GREEN}✓ zsh-autocomplete already configured in .zshrc.${NC}"
+fi
+
+# 7. GIT DELTA CONFIGURATION
+echo -e "${BLUE}==> Configuring Git Delta...${NC}"
+git config --global core.pager "delta"
+git config --global interactive.diffFilter "delta --color-only"
+git config --global delta.navigate "true"
+git config --global merge.conflictstyle "zdiff3"
+echo -e "${GREEN}✓ Git Delta configured.${NC}"
 
 echo -e "${GREEN}==========================================${NC}"
 echo -e "${GREEN}   Setup Complete! Please restart your    ${NC}"
