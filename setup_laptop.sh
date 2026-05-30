@@ -36,6 +36,7 @@ fi
 PACKAGES=(
     "starship"
     "lazygit"
+    "git-delta"
     "ripgrep"
     "dimaswisodewo/tools/sshwitch"
 )
@@ -48,7 +49,7 @@ CASKS=(
 )
 
 echo -e "${BLUE}==> Updating Homebrew...${NC}"
-brew update
+brew update -v
 
 echo -e "${BLUE}==> Installing Brew Formulae...${NC}"
 for pkg in "${PACKAGES[@]}"; do
@@ -103,6 +104,20 @@ if ! grep -q 'starship init zsh' "$HOME/.zshrc"; then
     echo 'eval "$(starship init zsh)"' >> "$HOME/.zshrc"
 else
     echo -e "${GREEN}✓ Starship already configured in .zshrc.${NC}"
+fi
+
+# 6. LAZYGIT CONFIGURATION
+LAZYGIT_CONFIG_DIR="$HOME/Library/Application Support/lazygit"
+LAZYGIT_LOCAL_CONFIG="./config/lazygit/config.yml"
+
+echo -e "${BLUE}==> Configuring Lazygit custom pager...${NC}"
+mkdir -p "$LAZYGIT_CONFIG_DIR"
+
+if [ -f "$LAZYGIT_LOCAL_CONFIG" ]; then
+    cp "$LAZYGIT_LOCAL_CONFIG" "$LAZYGIT_CONFIG_DIR/config.yml"
+    echo -e "${GREEN}✓ Lazygit configuration migrated.${NC}"
+else
+    echo -e "${YELLOW}Warning: '$LAZYGIT_LOCAL_CONFIG' not found. Skipping.${NC}"
 fi
 
 echo -e "${GREEN}==========================================${NC}"
