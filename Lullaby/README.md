@@ -25,7 +25,7 @@ Lullaby themes are built around one goal: **keeping your eyes comfortable throug
 - **Warm backgrounds** — The dark variants use a near-black blue-gray instead of pure black. The light variant uses a warm cream (`#F9F8F6`) rather than stark white.
 - **Comfortable contrast** — Readable without the jarring brightness that strains eyes over time.
 - **Breathing room** — 1.1× line spacing gives code a less cramped, more readable feel.
-- **SF Mono at 13pt** — Apple's purpose-built monospace font for clean, consistent rendering.
+- **Kode Mono at 13pt** — Used for source code, with matching console and inline code fonts.
 
 ---
 
@@ -85,6 +85,10 @@ Lullaby themes are built around one goal: **keeping your eyes comfortable throug
 ---
 
 ## Installation
+
+Run `bash setup_laptop.sh` from the repository root to install Kode Mono and configure Ghostty and Xcode. To configure only Xcode, run `bash setup_xcode_themes.sh` (requires Homebrew). The Xcode installer selects Lullaby+ for dark mode and Lullaby Light for light mode. Restart Xcode after setup.
+
+For manual installation, first install the font with `brew install --cask font-kode-mono`, then:
 
 1. Download the `.xccolortheme` file(s) you want from this repository.
 

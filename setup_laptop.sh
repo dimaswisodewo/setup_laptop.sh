@@ -6,6 +6,8 @@
 #              Also migrates local configurations to ~/.config.
 # ==============================================================================
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
 # --- Color Definitions for Pretty Output ---
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -43,11 +45,14 @@ PACKAGES=(
     "zsh-autocomplete"
 )
 
-# GUI Applications and Fonts
+# Applications, fonts, and standalone CLI tools
 CASKS=(
     "ghostty"
+    "font-kode-mono"
     "fork"
     "codex"
+    "antigravity-cli"
+    "chatgpt"
 )
 
 echo -e "${BLUE}==> Updating Homebrew...${NC}"
@@ -77,7 +82,6 @@ done
 # Ensure Node is ready before installing global tools
 echo -e "${BLUE}==> Installing AI CLI Tools...${NC}"
 NPM_TOOLS=(
-    "@google/gemini-cli"
     "@anthropic-ai/claude-code"
 )
 
@@ -146,6 +150,9 @@ git config --global interactive.diffFilter "delta --color-only"
 git config --global delta.navigate "true"
 git config --global merge.conflictstyle "zdiff3"
 echo -e "${GREEN}✓ Git Delta configured.${NC}"
+
+# 8. XCODE FONT AND THEMES
+bash "$SCRIPT_DIR/setup_xcode_themes.sh" || exit 1
 
 echo -e "${GREEN}==========================================${NC}"
 echo -e "${GREEN}   Setup Complete! Please restart your    ${NC}"
