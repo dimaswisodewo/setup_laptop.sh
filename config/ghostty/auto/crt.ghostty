@@ -1,0 +1,3 @@
+# Optional CRT-style rendering. Remove this include from ../config to disable.
+custom-shader = ../crt.glsl
+custom-shader-animation = false

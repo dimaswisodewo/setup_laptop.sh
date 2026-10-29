@@ -1,2 +1,3 @@
 config-file = ?auto/theme.ghostty
+config-file = ?auto/crt.ghostty
 font-family = Kode Mono
